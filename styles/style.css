@@ -1,0 +1,49 @@
+html {
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5,
+p,
+a,
+li,
+span {
+    font-size: 1rem;
+}
+
+.pageContainer {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.bill {
+    box-shadow: 4px 4px 2px 2px #99DDC8;
+    padding: 2rem;
+    margin: 2rem;
+    background: #283F3B;
+    color: #99DDC8;
+}
+
+header {
+    text-align: center;
+}
+
+.loading_div {
+    text-align: center;
+    display: none;
+}
