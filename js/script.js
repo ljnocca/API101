@@ -2,17 +2,14 @@ console.log($)
 var searchURL = 'https://congress.api.sunlightfoundation.com/bills/search?callback=?&apikey=123&query='
 var baseURL = 'https://congress.api.sunlightfoundation.com/bills?callback=?&apikey=123'
 
-// getJSON is a method that takes the input url and makes a request to the server at that location
-// getJSON returns a promise that will resolve when the response to the request comes in
-
 var makeBillHTML = function(singleBillObj) { // takes in a single object of the array and converts the object into html
     var getHTML = ''
     getHTML += '<div class="bill">'
-    getHTML += '<h2 class="title">' + singleBillObj.official_title + '</h2>'
-    getHTML += '<p class="chamber"> Chamber: ' + singleBillObj.chamber + '</p>'
-    getHTML += '<p class="sponsor"> Sponsor: ' + singleBillObj.sponsor.first_name + ' ' + singleBillObj.sponsor.last_name + '</p>'
-    getHTML += '<p class="status"> Status: ' + (singleBillObj.history.active ? 'active' : 'dead') + '</p>'
-    getHTML += '<p class="introDate"> Introduced on: ' + singleBillObj.introduced_on + '</p>'
+    getHTML +=  '<h2 class="title">' + singleBillObj.official_title + '</h2>'
+    getHTML +=  '<p class="chamber"> Chamber: ' + singleBillObj.chamber + '</p>'
+    getHTML +=  '<p class="sponsor"> Sponsor: ' + singleBillObj.sponsor.first_name + ' ' + singleBillObj.sponsor.last_name + '</p>'
+    getHTML +=  '<p class="status"> Status: ' + (singleBillObj.history.active ? 'active' : 'dead') + '</p>'
+    getHTML +=  '<p class="introDate"> Introduced on: ' + singleBillObj.introduced_on + '</p>'
     getHTML += '</div>'
 
     return getHTML
@@ -40,8 +37,8 @@ function hideGif() { // hides loading gif once bills are displayed
 //--------------------------------------------------
 
 function getBills(url) {
-    var billsPromise = $.getJSON(url)
-    billsPromise.then(handleBillsResponse)
+    var billsPromise = $.getJSON(url) // getJSON is a method that takes the input url and makes a request to the server at that location
+    billsPromise.then(handleBillsResponse) // getJSON returns a promise that will resolve when the response to the request comes in
 }
 
 var inputSearch = document.querySelector('.searchBar')
@@ -53,6 +50,21 @@ inputSearch.addEventListener('keydown', function(eventObj) {
     }
 })
 
+//--------------------------------------------------
+// ROUTER
+//--------------------------------------------------
+function router() { //hash routing determines what view you'll get based on the hash in the url
+    if (location.hash === '#home') {
+        showHome()
+    } 
+    else if (location.hash === '#billSearch') {
+        showBillSearch()
+    }
+    else {
+        location.hash = 'home' //defaults to home view if the hash is initially blank
+    }
+}
+
 function showHome() {
     var containerNode = document.querySelector('.container')
     containerNode.innerHTML = '<img src=http://i.imgur.com/u2gQ5yK.gif>'
@@ -62,28 +74,6 @@ var showBillSearch = function() {
     getBills(baseURL)
 }
 
-function router() {
-    if (location.hash === '#home') {
-        showHome()
-    } 
+window.addEventListener('hashchange', router) //hashchange is an eventListener. once it happens the router function above runs
 
-    else if (location.hash === '#billSearch') {
-        showBillSearch()
-    }
-
-    else {
-        location.hash = 'home'
-    }
-}
-
-window.addEventListener('hashchange', router)
-
-router()
-
-
-
-
-
-
-
-
+router() // Start the Router
